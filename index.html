@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Experience Survey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #f3d3d3, #d9e2ec);
+      padding: 20px;
+      margin: 0;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-container img {
+      max-height: 80px;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 650px;
+      margin: auto;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #cc0000;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    fieldset {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 2px solid #a3abb1;
+      border-radius: 10px;
+      background: #f9fbfd;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #333;
+      padding: 0 10px;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #3399cc;
+      box-shadow: 0 0 8px rgba(51, 153, 204, 0.2);
+      outline: none;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+      transform: scale(1.1);
+    }
+
+    textarea::placeholder {
+      color: #888;
+      font-style: italic;
+    }
+
+    .button-container {
+      text-align: center;
+    }
+
+    input[type="submit"], input[type="reset"] {
+      width: 45%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    input[type="submit"] {
+      background-color: #3399cc;
+      color: #fff;
+    }
+
+    input[type="reset"] {
+      background-color: #cc0000;
+      color: #fff;
+    }
+
+    input[type="submit"]:hover, input[type="reset"]:hover {
+      opacity: 0.95;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <form id="googleForm">
+    <h2>Customer Experience Survey</h2>
+
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" min="10" max="100">
+    </fieldset>
+
+    <fieldset>
+      <legend>Service Rating</legend>
+      <label>How satisfied are you with our service?</label>
+      <label><input type="radio" name="rating" value="very_satisfied"> Very Satisfied</label>
+      <label><input type="radio" name="rating" value="satisfied"> Satisfied</label>
+      <label><input type="radio" name="rating" value="neutral"> Neutral</label>
+      <label><input type="radio" name="rating" value="dissatisfied"> Dissatisfied</label>
+
+      <br><br>
+      <label>What features do you use? (Check all that apply):</label>
+      <label><input type="checkbox" name="feature" value="chat"> Live Chat</label>
+      <label><input type="checkbox" name="feature" value="support"> Email Support</label>
+      <label><input type="checkbox" name="feature" value="faq"> FAQs</label>
+
+      <br><br>
+      <label for="contact_method">Preferred Contact Method:</label>
+      <select name="contact_method" id="contact_method">
+        <option value="">--Please choose--</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+        <option value="chat">Live Chat</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>Additional Feedback</legend>
+      <label for="comments">Tell us how we can improve:</label>
+      <textarea id="comments" name="comments" rows="5" placeholder="Your feedback helps us grow..."></textarea>
+    </fieldset>
+
+    <div class="button-container">
+      <input type="reset" value="Reset Form">
+      <input type="submit" value="Submit Survey">
+    </div>
+  </form>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwCNM-n4mNV0oWQDbXBBZAeVtJqTT9YmtFg39nC6NkwZbWmgbt05TucGuQNxVyn2PiqSw/exec';
+    const form = document.getElementById('googleForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          alert("Form submitted successfully!");
+          form.reset();
+        })
+        .catch(error => alert('Error!', error.message));
+    });
+  </script>
+</body>
+</html>
